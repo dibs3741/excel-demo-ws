@@ -26,3 +26,7 @@ The chart to the right will take the table as input
 Create an Excel macro-enabled workbook (*xlsm) and add a form control button as shown below. 
 
 ![excel_webservice1](https://github.com/user-attachments/assets/04231298-13bf-4931-aa1c-c270eb68c400)
+
+
+[Sample spreadsheet]:https://github.com/dibs3741/excel-demo-ws/blob/main/excel_webservice.xlsm
+

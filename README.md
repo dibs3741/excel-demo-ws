@@ -28,5 +28,5 @@ Create an Excel macro-enabled workbook (*xlsm) and add a form control button as 
 ![excel_webservice1](https://github.com/user-attachments/assets/04231298-13bf-4931-aa1c-c270eb68c400)
 
 
-[Sample spreadsheet]:https://github.com/dibs3741/excel-demo-ws/blob/main/excel_webservice.xlsm
+Check the [Sample spreadsheet](./excel_webservice.xlsm) here which is also uploaded to git 
 

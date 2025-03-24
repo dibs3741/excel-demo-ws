@@ -23,10 +23,54 @@ The chart to the right will take the table as input
 *A plugin may need to be activated to allow excel to make web service calls.*  All code including the prices file and Excel spreadsheet will be made available in GitHub. 
 
 #### Explaining the application 
+##### The Front End 
+<hr>
+
 Create an Excel macro-enabled workbook (*xlsm) and add a form control button as shown below. 
 
 ![excel_webservice1](https://github.com/user-attachments/assets/04231298-13bf-4931-aa1c-c270eb68c400)
 
+It will auto generate a function with a default name and link the button to it. accept the default name 
+```
+Sub Button1_Click()
+End Sub
+```
+##### The Server Side  
+<hr>
 
+The python end point 
+```
+from fastapi import FastAPI, Depends
+from typing import Dict, List, Optional
+import pandas as pd
+from src.models import PricesDemo
+
+
+app = FastAPI()
+
+@app.get("/demo/excelapi/v1", response_model=List[PricesDemo])
+def demo_excelapi_v1():
+    df6 = (pd.read_csv('./db/demo_prices.csv', header=0)
+        # establish the date format
+        .pipe(lambda df: df.assign(asofdate = pd.to_datetime(df.asofdate)))
+        .pipe(lambda df: df.assign(asofdate = df.asofdate.dt.strftime('%Y-%m-%d')))
+        #
+        # pivot the frame so columns are etf's
+        .pipe(lambda df: df.pivot(index='asofdate', columns='ticker', values='price'))
+        .pipe(lambda df: pd.DataFrame(df.to_records()))
+        #
+        # assign the index and sort the data in sequence
+        .pipe(lambda df: df.set_index('asofdate'))
+        .pipe(lambda df: df.sort_values(by='asofdate'))
+        #
+        # convert prices to returns
+        .pipe(lambda df: df.pct_change())
+        #
+        # round the result to 4 dec pt
+        .pipe(lambda df: df.round(4)[1:])
+        .pipe(lambda df: df.reset_index())
+        )
+    return df6.to_dict(orient='records')
+```
 Check the [Sample spreadsheet](./excel_webservice.xlsm) here which is also uploaded to git 
 

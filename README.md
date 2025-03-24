@@ -21,3 +21,5 @@ The chart to the right will take the table as input
 
 **Note:**
 *A plugin may need to be activated to allow excel to make web service calls.*  All code including the prices file and Excel spreadsheet will be made available in GitHub at the following location:
+
+![excel_webservice1](https://github.com/user-attachments/assets/04231298-13bf-4931-aa1c-c270eb68c400)
